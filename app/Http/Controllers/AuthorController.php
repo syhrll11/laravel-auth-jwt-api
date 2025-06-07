@@ -12,15 +12,6 @@ class AuthorController extends Controller
         return response()->json(Author::all());
     }
 
-    public function show($id)
-    {
-        $author = Author::find($id);
-        if (!$author) {
-            return response()->json(['message' => 'Author not found'], 404);
-        }
-        return response()->json($author);
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -32,6 +23,15 @@ class AuthorController extends Controller
             'message' => 'Author created successfully',
             'data' => $author,
         ], 201);
+    }
+
+    public function show($id)
+    {
+        $author = Author::find($id);
+        if (!$author) {
+            return response()->json(['message' => 'Author not found'], 404);
+        }
+        return response()->json($author);
     }
 
     public function update(Request $request, $id)
